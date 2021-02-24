@@ -1,0 +1,15 @@
+select a.ACTIVITYID,
+	   c.CONTACTID,
+	   'MEETING' as ACTIVITY_TYPE,
+	   a.REGARDING,
+	   CAST(CAST(Datediff(s, '1970-01-01', a.STARTTIME) AS BIGINT)*1000 AS varchar)"STARTTIME",
+	   CAST(CAST(Datediff(s, '1970-01-01', a.ENDTIME) AS BIGINT)*1000 AS varchar)ENDTIME,
+	   a.DURATION,
+	   a.DETAILS,
+	   c.vid,
+	    CAST(CAST(Datediff(s, '1970-01-01', a.CREATEDATE) AS BIGINT)*1000 AS varchar)CREATEDATE
+from TBL_ACTIVITY a
+			inner join ACTIVITY_TYPE at on a.ACTIVITYTYPEID = at.ACTIVITYTYPEID
+			inner join TBL_CONTACT_ACTIVITY ca on ca.ACTIVITYID=a.ACTIVITYID
+			inner join MIG_CONTACTS c on ca.CONTACTID = c.CONTACTID
+where ACTIVITY_TYPE in ('Appointment','Meeting') and ISDELETED = 0

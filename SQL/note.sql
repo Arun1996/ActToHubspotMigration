@@ -1,0 +1,4 @@
+select C.CONTACTID,N.NOTEID,N.NOTETEXT,CAST(CAST(Datediff(s, '1970-01-01', DISPLAYDATE) AS BIGINT)*1000 AS varchar)"NoteTimestamp",C.vid from MIG_CONTACTS C
+			inner join TBL_CONTACT_NOTE CN on CN.CONTACTID = C.CONTACTID
+			inner join TBL_NOTE N on N.NOTEID = CN.NOTEID
+			order by DISPLAYDATE desc
