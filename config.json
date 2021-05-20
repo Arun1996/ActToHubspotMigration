@@ -1,6 +1,7 @@
 {
   "database": {
-    "server_name": "ARUN-LAPTOP",
-    "database_name": "AF_WebsiteMarketing"
-  }
+    "server_name": "server-name",
+    "database_name": "dbname"
+  },
+  "apikey": "apikey"
 }

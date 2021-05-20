@@ -1,16 +1,25 @@
-from ActDataAccessLayer import getContactData, getNoteData, getTaskData, getMeetingData
-from HubspotServiceLayer import migrateContacts, migrateEngagementNote, migrateEngagementTask, migrateEngagementMeetings
+import asyncio
 
-if __name__ == '__main__':
+from ActDataAccessLayer import getContactData, getNoteData, getTaskData, getMeetingData, getSecEmailData
+from HubspotServiceLayer import migrateContacts, updateSecondaryEmail, migrateEngagementNote, migrateEngagementTask, migrateEngagementMeetings
+
+
+def main():
     ContactData = getContactData()
-    migrateContacts(ContactData)
+    asyncio.run(migrateContacts(ContactData))
+
+    secEmail = getSecEmailData()
+    updateSecondaryEmail(secEmail)
 
     NoteData = getNoteData()
-    migrateEngagementNote(NoteData)
+    asyncio.run(migrateEngagementNote(NoteData))
 
     TaskData = getTaskData()
-    migrateEngagementTask(TaskData)
+    asyncio.run(migrateEngagementTask(TaskData))
 
     MeetingData = getMeetingData()
-    migrateEngagementMeetings(MeetingData)
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    asyncio.run(migrateEngagementMeetings(MeetingData))
+
+
+if __name__ == '__main__':
+    main()
